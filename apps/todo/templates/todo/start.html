@@ -1,0 +1,245 @@
+{% extends 'todo/base.html' %}
+{% block title %}目標を進める{% endblock %}
+{% block content %}
+<input type="hidden" id="csrf_token" value="{{ csrf_token() }}">
+<h2 class="mb-3">目標を進める</h2>
+<h3>{{ todo.todo_name }}</h3>
+
+<div class="progress w-50">
+    <div class="progress-bar" id="myProgressBar" role="progressbar" aria-label="Basic example" aria-valuenow="{{ todo.todo_pt_result }}" aria-valuemin="0" aria-valuemax="{{ todo.todo_pt }}" style="width: {{ result_p }}%;"></div>
+</div>
+<p><span id="todoPtResult">{{ todo.todo_pt_result }}</span> / {{ todo.todo_pt }}</p>
+<div id="lottieAnimation1" style="width: 400px; height: 250;"></div>
+<div id="lottieAnimation2" style="width: 400px; height: 250;"></div>
+<div id="lottieAnimation3" style="width: 400px; height: 250;"></div>
+<div id="lottieAnimation4" style="width: 400px; height: 250;"></div>
+<div id="lottieAnimationF" style="width: 400px; height: 250;"></div>
+<button type="button" class="btn btn-primary" id="move1">{{ todo.move_1 }}</button>
+<button type="button" class="btn btn-primary" id="move2">{{ todo.move_2 }}</button>
+<button type="button" class="btn btn-primary" id="move3">{{ todo.move_3 }}</button>
+<button type="button" class="btn btn-primary" id="move4">{{ todo.move_4 }}</button>
+<button id="updateButton" type="button" class="btn btn-outline-primary">行動を更新</button>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        document.getElementById('lottieAnimationF').style.display = 'none';
+        var lottie_filename = '{{ filenameF }}'
+        var animationF = lottie.loadAnimation({
+            container: document.getElementById('lottieAnimationF'), // アニメーションを表示する要素
+            renderer: 'svg', // SVG形式で描画
+            loop: false,      // ループ再生
+            autoplay: false,  // 自動再生
+            path: '{{ url_for("todo.lottie_file", filename="") }}' + lottie_filename + '.json' // Lottie JSONファイルのパス
+        });
+
+        document.getElementById('lottieAnimation1').style.display = 'none';
+        var lottie_filename = '{{ filename1 }}'
+        var animation1 = lottie.loadAnimation({
+            container: document.getElementById('lottieAnimation1'), // アニメーションを表示する要素
+            renderer: 'svg', // SVG形式で描画
+            loop: false,      // ループ再生
+            autoplay: false,  // 自動再生
+            path: '{{ url_for("todo.lottie_file", filename="") }}' + lottie_filename + '.json' // Lottie JSONファイルのパス
+        });
+
+        document.getElementById('lottieAnimation2').style.display = 'none';
+        var lottie_filename = '{{ filename2 }}'
+        var animation2 = lottie.loadAnimation({
+            container: document.getElementById('lottieAnimation2'), // アニメーションを表示する要素
+            renderer: 'svg', // SVG形式で描画
+            loop: false,      // ループ再生
+            autoplay: false,  // 自動再生
+            path: '{{ url_for("todo.lottie_file", filename="") }}' + lottie_filename + '.json' // Lottie JSONファイルのパス
+        });
+
+        document.getElementById('lottieAnimation3').style.display = 'none';
+        var lottie_filename = '{{ filename1 }}'
+        var animation3 = lottie.loadAnimation({
+            container: document.getElementById('lottieAnimation3'), // アニメーションを表示する要素
+            renderer: 'svg', // SVG形式で描画
+            loop: false,      // ループ再生
+            autoplay: false,  // 自動再生
+            path: '{{ url_for("todo.lottie_file", filename="") }}' + lottie_filename + '.json' // Lottie JSONファイルのパス
+        });
+
+        document.getElementById('lottieAnimation4').style.display = 'none';
+        var lottie_filename = '{{ filename2 }}'
+        var animation4 = lottie.loadAnimation({
+            container: document.getElementById('lottieAnimation4'), // アニメーションを表示する要素
+            renderer: 'svg', // SVG形式で描画
+            loop: false,      // ループ再生
+            autoplay: false,  // 自動再生
+            path: '{{ url_for("todo.lottie_file", filename="") }}' + lottie_filename + '.json' // Lottie JSONファイルのパス
+        });
+        $('#move1').click(function() {
+            var todoPtResult = $('#todoPtResult').text();
+            var movePt1 = {{ todo.move_pt_1|tojson }};
+            var todoPt = {{ todo.todo_pt|tojson}}
+            
+            todoPtResult -= movePt1;
+            if (todoPtResult <= 0) {
+                todoPtResult = 0
+            }
+            if (todoPtResult <= 0) {
+                document.getElementById('lottieAnimationF').style.display = 'block';
+                animationF.goToAndStop(0, true); // アニメーションを最初から再生
+                animationF.play();
+            } else {
+                document.getElementById('lottieAnimation1').style.display = 'block';
+                animation1.goToAndStop(0, true); // アニメーションを最初から再生
+                animation1.play();
+            }
+            newProgress = (todoPtResult / todoPt) * 100
+            $('#myProgressBar').css('width', newProgress + '%');
+            $('#todoPtResult').text(todoPtResult);
+
+            if (todoPtResult <= 0) {
+                setTimeout(function () {
+                    document.getElementById('lottieAnimationF').style.display = 'none';
+                    animationF.stop();
+                }, 3000);
+            } else {
+                setTimeout(function () {
+                    document.getElementById('lottieAnimation1').style.display = 'none';
+                    animation1.stop();
+                }, 3000);
+            }
+        });
+
+        $('#move2').click(function() {
+            var todoPtResult = $('#todoPtResult').text();
+            var movePt2 = {{ todo.move_pt_2|tojson }};
+            var todoPt = {{ todo.todo_pt|tojson}}
+            
+            todoPtResult -= movePt2;
+            if (todoPtResult <= 0) {
+                todoPtResult = 0
+            }
+            if (todoPtResult <= 0) {
+                document.getElementById('lottieAnimationF').style.display = 'block';
+                animationF.goToAndStop(0, true); // アニメーションを最初から再生
+                animationF.play();
+            } else {
+                document.getElementById('lottieAnimation2').style.display = 'block';
+                animation2.goToAndStop(0, true); // アニメーションを最初から再生
+                animation2.play();
+            }
+            newProgress = (todoPtResult / todoPt) * 100
+            $('#myProgressBar').css('width', newProgress + '%');
+            $('#todoPtResult').text(todoPtResult);
+
+            if (todoPtResult <= 0) {
+                setTimeout(function () {
+                    document.getElementById('lottieAnimationF').style.display = 'none';
+                    animationF.stop();
+                }, 3000);
+            } else {
+                setTimeout(function () {
+                    document.getElementById('lottieAnimation2').style.display = 'none';
+                    animation2.stop();
+                }, 3000);
+            }
+        });
+
+        $('#move3').click(function() {
+            var todoPtResult = $('#todoPtResult').text();
+            var movePt3 = {{ todo.move_pt_3|tojson }};
+            var todoPt = {{ todo.todo_pt|tojson}}
+            
+            todoPtResult -= movePt3;
+            if (todoPtResult <= 0) {
+                todoPtResult = 0
+            }
+            if (todoPtResult <= 0) {
+                document.getElementById('lottieAnimationF').style.display = 'block';
+                animationF.goToAndStop(0, true); // アニメーションを最初から再生
+                animationF.play();
+            } else {
+                document.getElementById('lottieAnimation3').style.display = 'block';
+                animation3.goToAndStop(0, true); // アニメーションを最初から再生
+                animation3.play();
+            }
+            newProgress = (todoPtResult / todoPt) * 100
+            $('#myProgressBar').css('width', newProgress + '%');
+            $('#todoPtResult').text(todoPtResult);
+
+            if (todoPtResult <= 0) {
+                setTimeout(function () {
+                    document.getElementById('lottieAnimationF').style.display = 'none';
+                    animationF.stop();
+                }, 3000);
+            } else {
+                setTimeout(function () {
+                    document.getElementById('lottieAnimation3').style.display = 'none';
+                    animation3.stop();
+                }, 3000);
+            }
+        });
+
+        $('#move4').click(function() {
+            var todoPtResult = $('#todoPtResult').text();
+            var movePt4 = {{ todo.move_pt_4|tojson }};
+            var todoPt = {{ todo.todo_pt|tojson}}
+            
+            todoPtResult -= movePt4;
+            if (todoPtResult <= 0) {
+                todoPtResult = 0
+            }
+            if (todoPtResult <= 0) {
+                document.getElementById('lottieAnimationF').style.display = 'block';
+                animationF.goToAndStop(0, true); // アニメーションを最初から再生
+                animationF.play();
+            } else {
+                document.getElementById('lottieAnimation4').style.display = 'block';
+                animation4.goToAndStop(0, true); // アニメーションを最初から再生
+                animation4.play();
+            }
+            newProgress = (todoPtResult / todoPt) * 100
+            $('#myProgressBar').css('width', newProgress + '%');
+            $('#todoPtResult').text(todoPtResult);
+
+            if (todoPtResult <= 0) {
+                setTimeout(function () {
+                    document.getElementById('lottieAnimationF').style.display = 'none';
+                    animationF.stop();
+                }, 3000);
+            } else {
+                setTimeout(function () {
+                    document.getElementById('lottieAnimation4').style.display = 'none';
+                    animation4.stop();
+                }, 3000);
+            }
+        });
+        function updateTodoPtResult() {
+            var newPt = document.getElementById('todoPtResult').textContent;
+            var todoId = {{ todo.id|tojson }};
+            var csrfToken = $('#csrf_token').val();
+            const url = '{{ url_for("todo.update_pt") }}'
+            console.log(newPt)
+    
+            // fetchを使用してデータを送信
+            fetch('/update_pt', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken
+                },
+                body: JSON.stringify({
+                    pt: newPt,
+                    id: todoId
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // サーバーからのレスポンスを表示
+                alert(data.message);
+            })
+            .catch(error => {
+                console.error('エラー:', error);
+            });
+        }
+        $('#updateButton').click(updateTodoPtResult);
+    });
+</script>
+{% endblock %}

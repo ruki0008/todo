@@ -1,0 +1,9 @@
+{% extends 'todo/base.html' %}
+{% block title %}目標を進める{% endblock %}
+{% block content %}
+<h2>目標一覧</h2>
+{% for todo in todos %}
+<a class="btn btn-lg btn-success" href="{{ url_for('todo.start_todo', todo_id=todo.id) }}" role="button">{{ todo.todo_name }}</a>
+<a class="btn btn-lg btn-success" href="{{ url_for('todo.edit_todo', todo_id=todo.id) }}" role="button">編集</a>
+{% endfor %}
+{% endblock %}
