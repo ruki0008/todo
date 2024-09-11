@@ -8,71 +8,68 @@
     novalidate="novalidate"
 >
     {{ form.csrf_token }}
+    {% for error in form.todo_name.errors %}
+    <span style="color: red;">{{ error }}</span>
+    {% endfor %}
     <p>
         {{ form.todo_name.label}} {{ form.todo_name(placeholder='目標名')}}
     </p>
-    {% for error in form.todo_name.error %}
+    
+    {% for error in form.todo_pt.errors %}
     <span style="color: red;">{{ error }}</span>
     {% endfor %}
-    
     <p>
         {{ form.todo_pt.label}} {{ form.todo_pt(placeholder='目標pt')}}
     </p>
-    {% for error in form.todo_pt.error %}
+
+    {% for error in form.move_1.errors %}
     <span style="color: red;">{{ error }}</span>
     {% endfor %}
-
     <p>
         {{ form.move_1.label}} {{ form.move_1(placeholder='行動1')}}
     </p>
-    {% for error in form.move_1.error %}
+    {% for error in form.move_pt_1.errors %}
     <span style="color: red;">{{ error }}</span>
     {% endfor %}
     <p>
         {{ form.move_pt_1.label}} {{ form.move_pt_1(placeholder='行動pt1')}}
     </p>
-    {% for error in form.move_pt_1.error %}
+    {% for error in form.move_2.errors %}
     <span style="color: red;">{{ error }}</span>
     {% endfor %}
-
     <p>
         {{ form.move_2.label}} {{ form.move_2(placeholder='行動2')}}
     </p>
-    {% for error in form.move_2.error %}
+    {% for error in form.move_pt_2.errors %}
     <span style="color: red;">{{ error }}</span>
     {% endfor %}
     <p>
         {{ form.move_pt_2.label}} {{ form.move_pt_2(placeholder='行動pt2')}}
     </p>
-    {% for error in form.move_pt_2.error %}
+    {% for error in form.move_3.errors %}
     <span style="color: red;">{{ error }}</span>
     {% endfor %}
-
     <p>
         {{ form.move_3.label}} {{ form.move_3(placeholder='行動3')}}
     </p>
-    {% for error in form.move_3.error %}
+    {% for error in form.move_pt_3.errors %}
     <span style="color: red;">{{ error }}</span>
     {% endfor %}
     <p>
         {{ form.move_pt_3.label}} {{ form.move_pt_3(placeholder='行動pt3')}}
     </p>
-    {% for error in form.move_pt_3.error %}
+    {% for error in form.move_4.errors %}
     <span style="color: red;">{{ error }}</span>
     {% endfor %}
-
     <p>
         {{ form.move_4.label}} {{ form.move_4(placeholder='行動4')}}
     </p>
-    {% for error in form.move_4.error %}
+    {% for error in form.move_pt_4.errors %}
     <span style="color: red;">{{ error }}</span>
     {% endfor %}
     <p>
         {{ form.move_pt_4.label}} {{ form.move_pt_4(placeholder='行動pt4')}}
     </p>
-    {% for error in form.move_pt_4.error %}
-    <span style="color: red;">{{ error }}</span>
-    {% endfor %}
     <p>{{ form.submit() }}</p>
 </form>
 {% endblock %}

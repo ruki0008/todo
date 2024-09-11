@@ -2,8 +2,13 @@
 {% block title %}目標を進める{% endblock %}
 {% block content %}
 <h2>目標一覧</h2>
+{% for message in get_flashed_messages() %}
+<p style="color: red;">{{ message }}</p>
+{% endfor %}
 {% for todo in todos %}
-<a class="btn btn-lg btn-success" href="{{ url_for('todo.start_todo', todo_id=todo.id) }}" role="button">{{ todo.todo_name }}</a>
-<a class="btn btn-lg btn-success" href="{{ url_for('todo.edit_todo', todo_id=todo.id) }}" role="button">編集</a>
+<div class="mb-3">
+    <a class="btn btn-lg btn-success" href="{{ url_for('todo.start_todo', todo_path=todo.todo_path, user_path=current_user.user_path) }}" role="button">{{ todo.todo_name }}</a>
+    <a class="btn btn-lg btn-success" href="{{ url_for('todo.edit_todo', todo_path=todo.todo_path, user_path=current_user.user_path) }}" role="button">編集</a>
+</div>
 {% endfor %}
 {% endblock %}

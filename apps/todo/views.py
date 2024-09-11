@@ -1,7 +1,10 @@
-from flask import Blueprint, render_template, redirect, url_for, current_app, send_from_directory, request,jsonify
+from flask import Blueprint, render_template, redirect, url_for, current_app, send_from_directory, request,jsonify, flash
 from flask_login import login_required, current_user
 from apps.todo.models import UserTodo
-from apps.todo.forms import TodoForm
+from apps.todo.forms import TodoCreateForm, TodoEditForm
+from apps.crud.models import User
+import string
+import random
 from apps.app import db
 
 todo = Blueprint(
@@ -25,33 +28,52 @@ def lottie_file(filename):
 @todo.post('/create')
 @login_required
 def create_todo():
-    form = TodoForm()
+    todos = UserTodo.query.filter_by(user_id=current_user.id).all()
+    user = User.query.filter_by(id=current_user.id).first()
+    user_path = user.user_path
+    if todos == None:
+        len_todo = 0
+    len_todo = len(todos)
+    print(len_todo)
+    if len_todo >= 2:
+        flash('目標は２つまでしか登録できません')
+        return redirect(url_for('todo.todos', user_path=user_path))
+    form = TodoCreateForm()
+    print('form')
     if form.validate_on_submit():
-        todo = UserTodo(
-            user_id=current_user.id,
-            todo_name=form.todo_name.data,
-            todo_pt=form.todo_pt.data,
-            todo_pt_result=form.todo_pt.data,
-            move_1=form.move_1.data,
-            move_2=form.move_2.data,
-            move_3=form.move_3.data,
-            move_4=form.move_4.data,
-            move_pt_1=form.move_pt_1.data,
-            move_pt_2=form.move_pt_2.data,
-            move_pt_3=form.move_pt_3.data,
-            move_pt_4=form.move_pt_4.data
-        )
+        user_id=current_user.id
+        todo_name=form.todo_name.data
+        todo_pt=form.todo_pt.data
+        todo_pt_result=form.todo_pt.data
+        move_1=form.move_1.data
+        move_2=form.move_2.data
+        move_3=form.move_3.data
+        move_4=form.move_4.data
+        move_pt_1=form.move_pt_1.data
+        move_pt_2=form.move_pt_2.data
+        move_pt_3=form.move_pt_3.data
+        move_pt_4=form.move_pt_4.data
+        todo_path = generate_random_string()
+        while True:
+            if not UserTodo.query.filter_by(todo_path=todo_path).first():
+                break
+            todo_path = generate_random_string()
+        
+        todo = UserTodo(user_id=user_id, todo_name=todo_name, todo_pt=todo_pt, todo_pt_result=todo_pt_result, move_1=move_1, move_2=move_2, move_3=move_3, move_4=move_4, move_pt_1=move_pt_1, move_pt_2=move_pt_2, move_pt_3=move_pt_3, move_pt_4=move_pt_4, todo_path=todo_path)
         db.session.add(todo)
         db.session.commit()
-        return redirect(url_for('todo.todos'))
+        user = User.query.filter_by(id=current_user.id).first()
+        user_path = user.user_path
+        print('redirect')
+        return redirect(url_for('todo.todos', user_path=user_path))
     return render_template('todo/create.html', form=form)
 
-@todo.get('/<todo_id>/edit')
-@todo.post('/<todo_id>/edit')
+@todo.get('/<user_path>/<todo_path>/edit')
+@todo.post('/<user_path>/<todo_path>/edit')
 @login_required
-def edit_todo(todo_id):
-    form = TodoForm()
-    todo = UserTodo.query.filter_by(id=todo_id).first()
+def edit_todo(todo_path, user_path):
+    form = TodoEditForm()
+    todo = UserTodo.query.filter_by(todo_path=todo_path).first()
     if form.validate_on_submit():
         todo.todo_name=form.todo_name.data
         todo.todo_pt=form.todo_pt.data
@@ -64,30 +86,37 @@ def edit_todo(todo_id):
         todo.move_pt_2=form.move_pt_2.data
         todo.move_pt_3=form.move_pt_3.data
         todo.move_pt_4=form.move_pt_4.data
+
+        user = User.query.filter_by(id=current_user.id).first()
+        user_path = user.user_path
+
+        if todo.todo_pt_result > todo.todo_pt:
+            flash('現在ptは目標pt以下で入力してください')
+            return redirect(url_for('todo.edit_todo', todo_path=todo.todo_path, user_path=user_path))
         
         db.session.add(todo)
         db.session.commit()
-        return redirect(url_for('todo.todos'))
+        return redirect(url_for('todo.todos', user_path=user_path))
     return render_template('todo/edit.html', todo=todo, form=form)
 
-@todo.post('/todo/<todo_id>/delete')
-def delete_todo(todo_id):
-    todo = UserTodo.query.filter_by(id=todo_id).first()
+@todo.post('/<user_path>/<todo_path>/delete')
+def delete_todo(todo_path, user_path):
+    todo = UserTodo.query.filter_by(todo_path=todo_path).first()
     db.session.delete(todo)
     db.session.commit()
-    return redirect(url_for('todo.todos'))
+    return redirect(url_for('todo.todos', user_path=user_path))
 
-@todo.get('/todos')
-@todo.post('/todos')
+@todo.get('/<user_path>/todos')
+@todo.post('/<user_path>/todos')
 @login_required
-def todos():
+def todos(user_path):
     todos = UserTodo.query.filter_by(user_id=current_user.id).all()
     return render_template('todo/todos.html', todos=todos)
 
-@todo.get('/<todo_id>/start')
-@todo.post('/<todo_id>/start')
-def start_todo(todo_id):
-    todo = UserTodo.query.filter_by(id=todo_id).first()
+@todo.get('/<user_path>/<todo_path>/start')
+@todo.post('/<user_path>/<todo_path>/start')
+def start_todo(todo_path, user_path):
+    todo = UserTodo.query.filter_by(todo_path=todo_path).first()
     if int(todo.todo_pt_result) <= 0:
         result_p = 0
     else:
@@ -113,6 +142,11 @@ def update_pt():
         todo.todo_pt_result = new_pt  # ptを新しい値に更新
         db.session.add(todo)
         db.session.commit()  # データベースに保存
-        return jsonify({'message': f"Todo ID {todo_id} のポイントを {new_pt} に更新しました。"})
+        return jsonify({'message': f"現在ポイントを {new_pt} に更新しました。"})
     else:
         return jsonify({'message': "Todoが見つかりませんでした。"}), 404
+    
+def generate_random_string(length=15):
+    characters = string.ascii_letters + string.digits
+    random_string = ''.join(random.choice(characters) for _ in range(length))
+    return random_string

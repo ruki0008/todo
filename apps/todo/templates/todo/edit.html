@@ -3,11 +3,14 @@
 {% block content %}
 <h2>目標を編集</h2>
 <form
-    action="{{ url_for('todo.edit_todo', todo_id=todo.id) }}"
+    action="{{ url_for('todo.edit_todo', todo_path=todo.todo_path, user_path=current_user.user_path) }}"
     method="POST"
     novalidate="novalidate"
 >
     {{ form.csrf_token }}
+    {% for message in get_flashed_messages() %}
+    <p style="color: red;">{{ message }}</p>
+    {% endfor %}
     <p>
         {{ form.todo_name.label }} {{ form.todo_name(placeholder='目標名', value=todo.todo_name) }}
     </p>
@@ -84,7 +87,7 @@
     <p>{{ form.submit() }}</p>
 </form>
 <form
-    action="{{ url_for('todo.delete_todo', todo_id=todo.id) }}"
+    action="{{ url_for('todo.delete_todo', todo_path=todo.todo_path, user_path=current_user.user_path) }}"
     method="POST"
 >
     {{ form.csrf_token }}
