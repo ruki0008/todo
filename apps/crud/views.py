@@ -39,6 +39,8 @@ def users():
 @crud.post('/users/<user_id>')
 @login_required
 def edit_user(user_id):
+    if current_user.is_admin == False:
+        return render_template('todo/index.html')
     form = UserForm()
     user = User.query.filter_by(id=user_id).first()
     if form.validate_on_submit():
@@ -53,6 +55,8 @@ def edit_user(user_id):
 @crud.post('/users/<user_id>/delete')
 @login_required
 def delete_user(user_id):
+    if current_user.is_admin == False:
+        return render_template('todo/index.html')
     user = User.query.filter_by(id=user_id).first()
     db.session.delete(user)
     db.session.commit()

@@ -29,6 +29,6 @@ def create_app(config_key):
     app.register_blueprint(auth_views.auth, url_prefix='/auth')
 
     from apps.todo import views as todo_views
-    app.register_blueprint(todo_views.todo)
+    app.register_blueprint(todo_views.todo, url_prefix='/todo')
 
     return app

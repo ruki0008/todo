@@ -2,9 +2,9 @@
 {% block title %}TODO{% endblock %}
 {% block content %}
 <div class="m-3">
-    <a class="btn btn-lg btn-success" href="{{ url_for('todo.create_todo') }}" role="button">目標を作成</a>
+    <a class="btn btn-lg btn-indigo-light shadow-sm" href="{{ url_for('todo.create_todo') }}" role="button">目標を作成</a>
 </div>
 <div class="m-3">
-    <a class="btn btn-lg btn-success" href="{{ url_for('todo.todos', user_path=current_user.user_path) }}" role="button">目標一覧</a>
+    <a class="btn btn-lg btn-indigo-light shadow-sm" href="{{ url_for('todo.todos', user_path=current_user.user_path) }}" role="button">目標一覧</a>
 </div>
 {% endblock %}

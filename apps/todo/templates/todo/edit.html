@@ -1,7 +1,7 @@
 {% extends 'todo/base.html' %}
 {% block title %}目標を編集{% endblock %}
 {% block content %}
-<h2>目標を編集</h2>
+<h3 class="top">目標を編集</h3>
 <form
     action="{{ url_for('todo.edit_todo', todo_path=todo.todo_path, user_path=current_user.user_path) }}"
     method="POST"

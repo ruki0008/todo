@@ -26,8 +26,8 @@
                 {% endfor %}
                 <p>{{ form.email(class='m-1', placeholder="メールアドレス") }}</p>
                 <p>{{ form.password(class='mt-1', placeholder='パスワード') }}</p>
-                <p>{{ form.submit(class='btn btn-primary') }}</p>
-                <a href="{{ url_for('auth.signup') }}">新規登録はこちら</a>
+                <p>{{ form.submit(class='btn btn-indigo-light') }}</p>
+                <a class="link-dark" href="{{ url_for('auth.signup') }}">新規登録はこちら</a>
             </form>
         </div>
     </div>

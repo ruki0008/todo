@@ -26,8 +26,8 @@
                 {% for error in form.password.errors %}
                 <span style="color: red;">{{ error }}</span>
                 {% endfor %}
-                <p>{{ form.submit(class='btn btn-primary') }}</p>
-                <a href="{{ url_for('auth.login') }}">ログインはこちら</a>
+                <p>{{ form.submit(class='btn btn-indigo-light') }}</p>
+                <a class="link-dark" href="{{ url_for('auth.login') }}">ログインはこちら</a>
             </form>
         </div>
     </div>

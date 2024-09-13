@@ -1,0 +1,36 @@
+:root {
+    --bs-indigo: #f9f9f9;
+}
+
+body {
+    font: Arial;
+}
+
+.btn-indigo-light {
+    color: var(--bs-indigo); background: #3bbaec; border: 2px solid #3bbaec;
+}
+
+.btn-indigo-light:hover {
+    color: var(--bs-indigo); background: #74cff4; border: 2px solid #74cff4;
+}
+
+.btn-indigo {
+    color: var(--bs-indigo); background: #3b7cec; border: 2px solid #3b7cec;
+}
+
+.btn-indigo:hover {
+    color: var(--bs-indigo); background: #588dea; border: 2px solid #588dea;
+}
+
+.lottie {
+    display: flex;
+    justify-content: center;
+}
+
+.top {
+    color: #6c757d;
+}
+
+.bar-indigo-light {
+    color: var(--bs-indigo); background: #3bbaec; border: 2px solid #3bbaec;
+}

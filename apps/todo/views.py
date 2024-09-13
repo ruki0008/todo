@@ -123,8 +123,9 @@ def start_todo(todo_path, user_path):
         result_p = (todo.todo_pt_result / todo.todo_pt) * 100
     filename1 = 'AttAnim2'
     filename2 = 'AttAnim'
+    filename3 = 'AttAnim3'
     filenameF = 'FinishAnim'
-    return render_template('todo/start.html', todo=todo, result_p=result_p, filename1=filename1, filename2=filename2, filenameF=filenameF)
+    return render_template('todo/start.html', todo=todo, result_p=result_p, filename1=filename1, filename2=filename2, filename3=filename3, filenameF=filenameF)
 
 @todo.get('/update_pt')
 @todo.post('/update_pt')
