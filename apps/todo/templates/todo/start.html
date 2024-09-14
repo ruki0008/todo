@@ -6,7 +6,7 @@
 <h3 class="top">{{ todo.todo_name }}</h3>
 
 <div class="progress w-50">
-    <div class="progress-bar bar-indigo-light" id="myProgressBar" role="progressbar" aria-label="Basic example" aria-valuenow="{{ todo.todo_pt_result }}" aria-valuemin="0" aria-valuemax="{{ todo.todo_pt }}" style="width: {{ result_p }}%;"></div>
+    <div class="progress-bar progress-bar-striped bg-info" id="myProgressBar" role="progressbar" aria-label="Basic example" aria-valuenow="{{ todo.todo_pt_result }}" aria-valuemin="0" aria-valuemax="{{ todo.todo_pt }}" style="width: {{ result_p }}%"></div>
 </div>
 <p class="top"><span id="todoPtResult">{{ todo.todo_pt_result }}</span> / {{ todo.todo_pt }}</p>
 <div id="lottieAnimation1" class="lottie" style="width: 400px; height: 250;"></div>
@@ -76,7 +76,7 @@
         $('#move1').click(function() {
             var todoPtResult = $('#todoPtResult').text();
             var movePt1 = {{ todo.move_pt_1|tojson }};
-            var todoPt = {{ todo.todo_pt|tojson}}
+            var todoPt = {{ todo.todo_pt|tojson}};
             
             todoPtResult -= movePt1;
             if (todoPtResult <= 0) {
@@ -91,7 +91,7 @@
                 animation1.goToAndStop(0, true); // アニメーションを最初から再生
                 animation1.play();
             }
-            newProgress = (todoPtResult / todoPt) * 100
+            newProgress = (todoPtResult / todoPt) * 100;
             $('#myProgressBar').css('width', newProgress + '%');
             $('#todoPtResult').text(todoPtResult);
 
@@ -111,7 +111,7 @@
         $('#move2').click(function() {
             var todoPtResult = $('#todoPtResult').text();
             var movePt2 = {{ todo.move_pt_2|tojson }};
-            var todoPt = {{ todo.todo_pt|tojson}}
+            var todoPt = {{ todo.todo_pt|tojson}};
             
             todoPtResult -= movePt2;
             if (todoPtResult <= 0) {
@@ -126,7 +126,7 @@
                 animation2.goToAndStop(0, true); // アニメーションを最初から再生
                 animation2.play();
             }
-            newProgress = (todoPtResult / todoPt) * 100
+            newProgress = (todoPtResult / todoPt) * 100;
             $('#myProgressBar').css('width', newProgress + '%');
             $('#todoPtResult').text(todoPtResult);
 
@@ -146,7 +146,7 @@
         $('#move3').click(function() {
             var todoPtResult = $('#todoPtResult').text();
             var movePt3 = {{ todo.move_pt_3|tojson }};
-            var todoPt = {{ todo.todo_pt|tojson}}
+            var todoPt = {{ todo.todo_pt|tojson}};
             
             todoPtResult -= movePt3;
             if (todoPtResult <= 0) {
@@ -161,7 +161,7 @@
                 animation3.goToAndStop(0, true); // アニメーションを最初から再生
                 animation3.play();
             }
-            newProgress = (todoPtResult / todoPt) * 100
+            newProgress = (todoPtResult / todoPt) * 100;
             $('#myProgressBar').css('width', newProgress + '%');
             $('#todoPtResult').text(todoPtResult);
 
@@ -196,7 +196,7 @@
                 animation4.goToAndStop(0, true); // アニメーションを最初から再生
                 animation4.play();
             }
-            newProgress = (todoPtResult / todoPt) * 100
+            newProgress = (todoPtResult / todoPt) * 100;
             $('#myProgressBar').css('width', newProgress + '%');
             $('#todoPtResult').text(todoPtResult);
 
