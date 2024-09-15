@@ -1,7 +1,7 @@
 {% extends 'todo/base.html' %}
 {% block title %}目標を作成{% endblock %}
 {% block content %}
-<h2>目標を作成</h2>
+<h2 class="top mb-3">目標を作成</h2>
 <form
     action="{{ url_for('todo.create_todo') }}"
     method="POST"
@@ -11,65 +11,52 @@
     {% for error in form.todo_name.errors %}
     <span style="color: red;">{{ error }}</span>
     {% endfor %}
-    <p>
-        {{ form.todo_name.label}} {{ form.todo_name(placeholder='目標名')}}
-    </p>
-    
     {% for error in form.todo_pt.errors %}
     <span style="color: red;">{{ error }}</span>
     {% endfor %}
     <p>
-        {{ form.todo_pt.label}} {{ form.todo_pt(placeholder='目標pt')}}
+        {{ form.todo_name.label}} <span>&nbsp;</span> {{ form.todo_name(placeholder='目標名')}} <span>&nbsp;&nbsp;&nbsp;</span> {{ form.todo_pt(placeholder='目標pt')}}
     </p>
 
     {% for error in form.move_1.errors %}
     <span style="color: red;">{{ error }}</span>
     {% endfor %}
-    <p>
-        {{ form.move_1.label}} {{ form.move_1(placeholder='行動1')}}
-    </p>
     {% for error in form.move_pt_1.errors %}
     <span style="color: red;">{{ error }}</span>
     {% endfor %}
     <p>
-        {{ form.move_pt_1.label}} {{ form.move_pt_1(placeholder='行動pt1')}}
+        {{ form.move_1.label}} <span>&nbsp;&nbsp;</span> {{ form.move_1(placeholder='行動1')}} <span>&nbsp;&nbsp;&nbsp;</span> {{ form.move_pt_1(placeholder='行動pt1')}}
     </p>
+
     {% for error in form.move_2.errors %}
     <span style="color: red;">{{ error }}</span>
     {% endfor %}
-    <p>
-        {{ form.move_2.label}} {{ form.move_2(placeholder='行動2')}}
-    </p>
     {% for error in form.move_pt_2.errors %}
     <span style="color: red;">{{ error }}</span>
     {% endfor %}
     <p>
-        {{ form.move_pt_2.label}} {{ form.move_pt_2(placeholder='行動pt2')}}
+        {{ form.move_2.label}} <span>&nbsp;&nbsp;</span> {{ form.move_2(placeholder='行動2')}} <span>&nbsp;&nbsp;&nbsp;</span> {{ form.move_pt_2(placeholder='行動pt2')}}
     </p>
+
     {% for error in form.move_3.errors %}
     <span style="color: red;">{{ error }}</span>
     {% endfor %}
-    <p>
-        {{ form.move_3.label}} {{ form.move_3(placeholder='行動3')}}
-    </p>
     {% for error in form.move_pt_3.errors %}
     <span style="color: red;">{{ error }}</span>
     {% endfor %}
     <p>
-        {{ form.move_pt_3.label}} {{ form.move_pt_3(placeholder='行動pt3')}}
+        {{ form.move_3.label}} <span>&nbsp;&nbsp;</span> {{ form.move_3(placeholder='行動3')}} <span>&nbsp;&nbsp;&nbsp;</span> {{ form.move_pt_3(placeholder='行動pt3')}}
     </p>
+
     {% for error in form.move_4.errors %}
     <span style="color: red;">{{ error }}</span>
     {% endfor %}
-    <p>
-        {{ form.move_4.label}} {{ form.move_4(placeholder='行動4')}}
-    </p>
     {% for error in form.move_pt_4.errors %}
     <span style="color: red;">{{ error }}</span>
     {% endfor %}
     <p>
-        {{ form.move_pt_4.label}} {{ form.move_pt_4(placeholder='行動pt4')}}
+        {{ form.move_4.label}} <span>&nbsp;&nbsp;</span> {{ form.move_4(placeholder='行動4')}} <span>&nbsp;&nbsp;&nbsp;</span> {{ form.move_pt_4(placeholder='行動pt4')}}
     </p>
-    <p>{{ form.submit() }}</p>
+    <p>{{ form.submit(class='btn btn-indigo-light') }}</p>
 </form>
 {% endblock %}

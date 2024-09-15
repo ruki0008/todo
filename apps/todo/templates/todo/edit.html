@@ -1,7 +1,7 @@
 {% extends 'todo/base.html' %}
 {% block title %}目標を編集{% endblock %}
 {% block content %}
-<h3 class="top">目標を編集</h3>
+<h3 class="top mb-3">目標を編集</h3>
 <form
     action="{{ url_for('todo.edit_todo', todo_path=todo.todo_path, user_path=current_user.user_path) }}"
     method="POST"
@@ -11,86 +11,67 @@
     {% for message in get_flashed_messages() %}
     <p style="color: red;">{{ message }}</p>
     {% endfor %}
-    <p>
-        {{ form.todo_name.label }} {{ form.todo_name(placeholder='目標名', value=todo.todo_name) }}
-    </p>
+
     {% for error in form.todo_name.errors %}
     <span style="color: red;">{{ error }}</span>
     {% endfor %}
-
-    <p>
-        {{ form.todo_pt.label}} {{ form.todo_pt(placeholder='目標pt', value=todo.todo_pt) }}
-    </p>
     {% for error in form.todo_pt.error %}
     <span style="color: red;">{{ error }}</span>
     {% endfor %}
-
     <p>
-        {{ form.todo_pt_result.label}} {{ form.todo_pt_result(placeholder='現在pt', value=todo.todo_pt_result) }}
+        {{ form.todo_name.label }} <span>&nbsp;</span> {{ form.todo_name(placeholder='目標名', value=todo.todo_name) }} <span>&nbsp;&nbsp;&nbsp;</span> {{ form.todo_pt(placeholder='目標pt', value=todo.todo_pt) }}
     </p>
-    {% for error in form.todo_pt_result.error %}
-    <span style="color: red;">{{ error }}</span>
-    {% endfor %}
+    <p></p>
+        {{ form.todo_pt_result.label}} <span>&nbsp;</span> {{ form.todo_pt_result(placeholder='現在pt', value=todo.todo_pt_result) }}
+    </p>
 
-    <p>
-        {{ form.move_1.label}} {{ form.move_1(placeholder='行動1', value=todo.move_1) }}
-    </p>
     {% for error in form.move_1.error %}
     <span style="color: red;">{{ error }}</span>
     {% endfor %}
-
-    <p>
-        {{ form.move_pt_1.label}} {{ form.move_pt_1(placeholder='行動pt1', value=todo.move_pt_1) }}
-    </p>
     {% for error in form.move_pt_1.error %}
     <span style="color: red;">{{ error }}</span>
     {% endfor %}
-
-    <p>
-        {{ form.move_2.label}} {{ form.move_2(placeholder='行動2', value=todo.move_2) }}
+    <p></p>
+        {{ form.move_1.label}} <span>&nbsp;&nbsp;</span> {{ form.move_1(placeholder='行動1', value=todo.move_1) }} <span>&nbsp;&nbsp;&nbsp;</span> {{ form.move_pt_1(placeholder='行動pt1', value=todo.move_pt_1) }}
     </p>
+    
+
     {% for error in form.move_2.error %}
     <span style="color: red;">{{ error }}</span>
     {% endfor %}
-    <p>
-        {{ form.move_pt_2.label}} {{ form.move_pt_2(placeholder='行動pt2', value=todo.move_pt_2) }}
-    </p>
     {% for error in form.move_pt_2.error %}
     <span style="color: red;">{{ error }}</span>
     {% endfor %}
-
     <p>
-        {{ form.move_3.label}} {{ form.move_3(placeholder='行動3', value=todo.move_3) }}
+        {{ form.move_2.label}} <span>&nbsp;&nbsp;</span> {{ form.move_2(placeholder='行動2', value=todo.move_2) }} <span>&nbsp;&nbsp;&nbsp;</span> {{ form.move_pt_2(placeholder='行動pt2', value=todo.move_pt_2) }}
     </p>
+
     {% for error in form.move_3.error %}
     <span style="color: red;">{{ error }}</span>
     {% endfor %}
-    <p>
-        {{ form.move_pt_3.label}} {{ form.move_pt_3(placeholder='行動pt3', value=todo.move_pt_3) }}
-    </p>
     {% for error in form.move_pt_3.error %}
     <span style="color: red;">{{ error }}</span>
     {% endfor %}
-
     <p>
-        {{ form.move_4.label}} {{ form.move_4(placeholder='行動4', value=todo.move_4) }}
+        {{ form.move_3.label}} <span>&nbsp;&nbsp;</span> {{ form.move_3(placeholder='行動3', value=todo.move_3) }} <span>&nbsp;&nbsp;&nbsp;</span> {{ form.move_pt_3(placeholder='行動pt3', value=todo.move_pt_3) }}
     </p>
+
     {% for error in form.move_4.error %}
     <span style="color: red;">{{ error }}</span>
     {% endfor %}
-    <p>
-        {{ form.move_pt_4.label}} {{ form.move_pt_4(placeholder='行動pt4', value=todo.move_pt_4) }}
-    </p>
     {% for error in form.move_pt_4.error %}
     <span style="color: red;">{{ error }}</span>
     {% endfor %}
-    <p>{{ form.submit() }}</p>
+    <p>
+        {{ form.move_4.label}} <span>&nbsp;&nbsp;</span> {{ form.move_4(placeholder='行動4', value=todo.move_4) }} <span>&nbsp;&nbsp;&nbsp;</span> {{ form.move_pt_4(placeholder='行動pt4', value=todo.move_pt_4) }}
+    </p>
+    <p>{{ form.submit(class='btn btn-indigo-light') }}</p>
 </form>
 <form
     action="{{ url_for('todo.delete_todo', todo_path=todo.todo_path, user_path=current_user.user_path) }}"
     method="POST"
 >
     {{ form.csrf_token }}
-    <input type="submit" value="削除">
+    <input type="submit" value="削除" class="btn btn-warning">
 </form>
 {% endblock %}

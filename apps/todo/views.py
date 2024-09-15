@@ -74,6 +74,8 @@ def create_todo():
 def edit_todo(todo_path, user_path):
     form = TodoEditForm()
     todo = UserTodo.query.filter_by(todo_path=todo_path).first()
+    if str(todo.user_id) != str(current_user.id):
+        return redirect(url_for('todo.todos', user_path=current_user.user_path))
     if form.validate_on_submit():
         todo.todo_name=form.todo_name.data
         todo.todo_pt=form.todo_pt.data
@@ -102,6 +104,8 @@ def edit_todo(todo_path, user_path):
 @todo.post('/<user_path>/<todo_path>/delete')
 def delete_todo(todo_path, user_path):
     todo = UserTodo.query.filter_by(todo_path=todo_path).first()
+    if str(todo.user_id) != str(current_user.id):
+        return redirect(url_for('todo.todos', user_path=current_user.user_path))
     db.session.delete(todo)
     db.session.commit()
     return redirect(url_for('todo.todos', user_path=user_path))
@@ -117,6 +121,9 @@ def todos(user_path):
 @todo.post('/<user_path>/<todo_path>/start')
 def start_todo(todo_path, user_path):
     todo = UserTodo.query.filter_by(todo_path=todo_path).first()
+    print(todo.todo_name)
+    if str(todo.user_id) != str(current_user.id):
+        return redirect(url_for('todo.todos', user_path=current_user.user_path))
     if int(todo.todo_pt_result) <= 0:
         result_p = 0
     else:
