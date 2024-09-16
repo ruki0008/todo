@@ -19,7 +19,7 @@
     <span style="color: red;">{{ error }}</span>
     {% endfor %}
     <p>
-        {{ form.todo_name.label }} <span>&nbsp;</span> {{ form.todo_name(placeholder='目標名', value=todo.todo_name) }} <span>&nbsp;&nbsp;&nbsp;</span> {{ form.todo_pt(class='mb-2', placeholder='目標pt', value=todo.todo_pt) }}
+        {{ form.todo_name.label }} <span>&nbsp;</span> {{ form.todo_name(class='mb-2', placeholder='目標名', value=todo.todo_name) }} <span>&nbsp;&nbsp;&nbsp;</span> {{ form.todo_pt(class='mb-2', placeholder='目標pt', value=todo.todo_pt) }}
     </p>
     <p></p>
         {{ form.todo_pt_result.label}} <span>&nbsp;</span> {{ form.todo_pt_result(class='mb-2', placeholder='現在pt', value=todo.todo_pt_result) }}
