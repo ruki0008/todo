@@ -18,7 +18,13 @@ class TestingConfig(BaseConfig):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_ECHO = False
 
+class DevelopmentConfig(BaseConfig):
+    SQLALCHEMY_DATABASE_URI = os.environ.get('POSTGRES_DATABASE_URL')
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_ECHO = False
+
 config = {
+    'development': DevelopmentConfig,
     'testing': TestingConfig,
     'local': LocalConfig
 }
