@@ -19,22 +19,6 @@ def users():
     users = User.query.all()
     return render_template('crud/index.html', users=users)
 
-# @crud.get('/users/new')
-# @crud.post('/users/new')
-# @login_required
-# def create_user():
-#     form = UserForm()
-#     if form.validate_on_submit():
-#         user = User(
-#             username=form.username.data,
-#             email=form.email.data,
-#             password=form.password.data
-#         )
-#         db.session.add(user)
-#         db.session.commit()
-#         return redirect(url_for('crud.users'))
-#     return render_template('crud/create.html', form=form)
-
 @crud.get('/users/<user_id>')
 @crud.post('/users/<user_id>')
 @login_required
