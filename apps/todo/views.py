@@ -35,7 +35,7 @@ def create_todo():
         len_todo = 0
     len_todo = len(todos)
     print(len_todo)
-    if len_todo >= 2:
+    if len_todo >= 2 and user.is_admin == False:
         flash('目標は２つまでしか登録できません')
         return redirect(url_for('todo.todos', user_path=user_path))
     form = TodoCreateForm()
