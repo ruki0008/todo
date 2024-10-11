@@ -126,7 +126,10 @@ def todos(user_path):
 @login_required
 def start_todo(todo_path, user_path):
     todo = UserTodo.query.filter_by(todo_path=todo_path).first()
-    days_left = (todo.target_day - datetime.date.today()).days
+    if todo.target_day:
+        days_left = (todo.target_day - datetime.date.today()).days
+    else:
+        days_left = None
     print(todo.todo_name)
     if str(todo.user_id) != str(current_user.id):
         return redirect(url_for('todo.todos', user_path=current_user.user_path))
