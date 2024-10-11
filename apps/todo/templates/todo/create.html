@@ -8,6 +8,12 @@
     novalidate="novalidate"
 >
     {{ form.csrf_token }}
+    {% for error in form.target_day.errors %}
+    <span style="color: red;">{{ error }}</span>
+    {% endfor %}
+    <p>
+        {{ form.target_day.label }} <span>&nbsp;&nbsp;</span> {{ form.target_day(class='mb-2 date_pick', placeholder='目標期限')}}
+    </p>
     {% for error in form.todo_name.errors %}
     <span style="color: red;">{{ error }}</span>
     {% endfor %}
@@ -17,7 +23,6 @@
     <p>
         {{ form.todo_name.label}} <span>&nbsp;</span> {{ form.todo_name(class='mb-2', placeholder='目標名')}} <span>&nbsp;&nbsp;&nbsp;</span> {{ form.todo_pt(class='mb-2', placeholder='目標pt')}}
     </p>
-
     {% for error in form.move_1.errors %}
     <span style="color: red;">{{ error }}</span>
     {% endfor %}
@@ -59,4 +64,12 @@
     </p>
     <p>{{ form.submit(class='btn btn-indigo-light') }}</p>
 </form>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(function() {
+        $(".date_pick").datepicker({
+            language: 'ja'
+        });
+    });
+</script>
 {% endblock %}

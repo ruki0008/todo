@@ -12,6 +12,13 @@
     <p style="color: red;">{{ message }}</p>
     {% endfor %}
 
+    {% for error in form.target_day.errors %}
+    <span style="color: red;">{{ error }}</span>
+    {% endfor %}
+    <p>
+        {{ form.target_day.label }} <span>&nbsp;&nbsp;</span> {{ form.target_day(class='mb-2 date_pick', placeholder='目標期限', value=todo.target_day) }}
+    </p>
+    
     {% for error in form.todo_name.errors %}
     <span style="color: red;">{{ error }}</span>
     {% endfor %}

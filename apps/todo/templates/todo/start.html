@@ -3,7 +3,8 @@
 {% block content %}
 <input type="hidden" id="csrf_token" value="{{ csrf_token() }}">
 
-<h3 class="top">{{ todo.todo_name }}</h3>
+<h3 class="top">{{ todo.todo_name }} <span>&nbsp;&nbsp;</span> <span class="h5">{{ todo.target_day }}</span> <span>&nbsp;&nbsp;</span> <span><span class="h5">残り</span>{{ days_left }}<span class="h5">日</span></span></h3>
+<h4></h4>
 
 <div class="progress w-50">
     <div class="progress-bar progress-bar-striped bg-info" id="myProgressBar" role="progressbar" aria-label="Basic example" aria-valuenow="{{ todo.todo_pt_result }}" aria-valuemin="0" aria-valuemax="{{ todo.todo_pt }}" style="width: {{ result_p }}%"></div>

@@ -17,3 +17,4 @@ class UserTodo(db.Model):
     move_pt_3 = db.Column(db.Integer)
     move_pt_4 = db.Column(db.Integer)
     todo_path = db.Column(db.String)
+    target_day = db.Column(db.Date, nullable=True)

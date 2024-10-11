@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import PasswordField, StringField, SubmitField, IntegerField
+from wtforms import PasswordField, StringField, SubmitField, IntegerField, DateField
 from wtforms.validators import DataRequired, Length, NumberRange
 
 class TodoCreateForm(FlaskForm):
@@ -72,6 +72,13 @@ class TodoCreateForm(FlaskForm):
             DataRequired('行動pt4は必須です。'),
             NumberRange(min=1, max=10000, message=('1以上10000以下で入力してください'))
         ]
+    )
+    target_day = DateField(
+        '目標期限',
+        format='%Y-%m-%d'
+        # validators=[
+        #     DataRequired(message="Target day is required")
+        # ]
     )
     submit = SubmitField('目標を登録')
 
@@ -152,5 +159,12 @@ class TodoEditForm(FlaskForm):
             DataRequired('行動pt4は必須です。'),
             NumberRange(min=1, max=10000, message=('1以上10000以下で入力してください'))
         ]
+    )
+    target_day = DateField(
+        '目標期限',
+        format='%Y-%m-%d'
+        # validators=[
+        #     DataRequired(message="Target day is required")
+        # ]
     )
     submit = SubmitField('目標を更新')
