@@ -80,6 +80,9 @@ class TodoCreateForm(FlaskForm):
         #     DataRequired(message="Target day is required")
         # ]
     )
+    reward = StringField(
+        'ご褒美'
+    )
     submit = SubmitField('目標を登録')
 
 class TodoEditForm(FlaskForm):
@@ -166,5 +169,8 @@ class TodoEditForm(FlaskForm):
         # validators=[
         #     DataRequired(message="Target day is required")
         # ]
+    )
+    reward = StringField(
+        'ご褒美'
     )
     submit = SubmitField('目標を更新')

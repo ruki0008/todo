@@ -62,6 +62,13 @@
     <p>
         {{ form.move_4.label}} <span>&nbsp;&nbsp;</span> {{ form.move_4(class='mb-2', placeholder='行動4')}} <span>&nbsp;&nbsp;&nbsp;</span> {{ form.move_pt_4(class='mb-2', placeholder='行動pt4')}}
     </p>
+
+    {% for error in form.reward.errors %}
+    <span style="color: red;">{{ error }}</span>
+    {% endfor %}
+    <p>
+        {{ form.reward.label}} <span>&nbsp;&nbsp;</span> {{ form.reward(class='mb-2', placeholder='ご褒美')}}
+    </p>
     <p>{{ form.submit(class='btn btn-indigo-light') }}</p>
 </form>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

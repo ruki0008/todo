@@ -8,6 +8,9 @@
 {% else %}
     <h3 class="top">{{ todo.todo_name }}</h3>
 {% endif %}
+{% if todo.reward %}
+    <h5 class="top">ご褒美<span class="h4">「{{ todo.reward }}」</span></h5>
+{% endif %}
 <div class="progress w-50">
     <div class="progress-bar progress-bar-striped bg-info" id="myProgressBar" role="progressbar" aria-label="Basic example" aria-valuenow="{{ todo.todo_pt_result }}" aria-valuemin="0" aria-valuemax="{{ todo.todo_pt }}" style="width: {{ result_p }}%"></div>
 </div>

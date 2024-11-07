@@ -55,13 +55,14 @@ def create_todo():
         move_pt_3=form.move_pt_3.data
         move_pt_4=form.move_pt_4.data
         target_day=form.target_day.data
+        reward=form.reward.data
         todo_path = generate_random_string()
         while True:
             if not UserTodo.query.filter_by(todo_path=todo_path).first():
                 break
             todo_path = generate_random_string()
         
-        todo = UserTodo(user_id=user_id, todo_name=todo_name, todo_pt=todo_pt, todo_pt_result=todo_pt_result, move_1=move_1, move_2=move_2, move_3=move_3, move_4=move_4, move_pt_1=move_pt_1, move_pt_2=move_pt_2, move_pt_3=move_pt_3, move_pt_4=move_pt_4, target_day=target_day, todo_path=todo_path)
+        todo = UserTodo(user_id=user_id, todo_name=todo_name, todo_pt=todo_pt, todo_pt_result=todo_pt_result, move_1=move_1, move_2=move_2, move_3=move_3, move_4=move_4, move_pt_1=move_pt_1, move_pt_2=move_pt_2, move_pt_3=move_pt_3, move_pt_4=move_pt_4, target_day=target_day, todo_path=todo_path, reward=reward)
         db.session.add(todo)
         db.session.commit()
         user = User.query.filter_by(id=current_user.id).first()
@@ -91,6 +92,7 @@ def edit_todo(todo_path, user_path):
         todo.move_pt_3=form.move_pt_3.data
         todo.move_pt_4=form.move_pt_4.data
         todo.target_day=form.target_day.data
+        todo.reward=form.reward.data
 
         user = User.query.filter_by(id=current_user.id).first()
         user_path = user.user_path
